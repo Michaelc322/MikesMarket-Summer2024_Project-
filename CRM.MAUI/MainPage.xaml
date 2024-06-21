@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CRM.MAUI.MainPage"
+             >
+
+
+    <Shell.TitleView>
+        <HorizontalStackLayout Padding="10, 0">
+            <Label
+                Text="Dashboard"
+                FontFamily="Poppins"
+                TextColor="White"
+                VerticalTextAlignment="Center"
+                VerticalOptions="Center"
+                FontSize="Medium"/>
+
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+
+    <ScrollView
+        Background="#232f3e">
+
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="10">
+
+            <Image Source="mikes_market.png" 
+                   WidthRequest="300"
+                   Margin="0, 25, 0 , 30"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <Button
+                    Background="#2a2c33"
+                    BorderColor="Black"
+                    CornerRadius="20"
+                    TextColor="White"
+                    BorderWidth="2"
+                    FontFamily="Poppins"
+                    FontAttributes="Bold"
+                    Text="Shop"
+                    Clicked="ShopClicked"
+                    Margin="5"/>
+                </Grid>
+
+
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Button
+                    Background="#2a2c33"
+                    BorderColor="Black"
+                    TextColor="White"
+                    CornerRadius="20"
+                    BorderWidth="2"
+                    FontFamily="Poppins"
+                    FontAttributes="Bold"
+                    Text="Inventory"
+                    Clicked="InventoryClicked"
+                    Margin="5"
+                    
+                    />
+                </Grid>
+            </Grid>
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CRM.MAUI.Views.ShopView"
+             Title="Store"
+             ContentPage.BackgroundColor="#232f3e"
+             NavigatedTo="ContentPage_NavigatedTo">
+
+    <Shell.TitleView>
+        <HorizontalStackLayout Padding="10, 0">
+            <Label
+                Text="Store"
+                FontFamily="AmazonEmberDisplay_Rg"
+                TextColor="White"
+                VerticalTextAlignment="Center"
+                VerticalOptions="Center"
+                FontSize="Medium"/>
+
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <VerticalStackLayout Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <!-- Search Box -->
+                    <Grid Grid.Row="0"
+                      Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Entry Grid.Column="0" Text="{Binding InventoryQuery}"
+                               Placeholder="Search for a product..."
+                               />
+                        <Button Grid.Column="1" Text="Search" Clicked="InventorySearchClicked"
+                                    Background="#146eb4"
+                                    CornerRadius="0"
+                                    TextColor="White"/>
+                    </Grid>
+                    <!-- Inventory -->
+                    <ListView
+                    ItemsSource="{Binding Products}"
+                    SelectedItem="{Binding ProductToBuy}"
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="5*"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0" Text="{Binding Product.Id}"/>
+                                        <Label Grid.Column="1" Text="{Binding DisplayPrice}"/>
+                                        <Label Grid.Column="2" Text="{Binding Product.Name}"/>
+                                        <Label Grid.Column="3" Text="{Binding Product.Quantity}"/>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+                <!-- Filled Space -->
+                <BoxView Color="Transparent" Grid.Column="1" WidthRequest="30" />
+
+                <Grid Grid.Row="0" Grid.Column="2">
+                    <!-- Cart -->
+                    <ListView
+                    ItemsSource="{Binding CartContents}"
+                    >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="5*"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0" Text="{Binding Product.Id}"/>
+                                        <Label Grid.Column="1" Text="{Binding DisplayPrice}"/>
+                                        <Label Grid.Column="2" Text="{Binding Product.Name}"/>
+                                        <Label Grid.Column="3" Text="{Binding Product.Quantity}"/>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column ="2">
+                    <Label Text="{Binding CartTotal}"/>
+                </Grid>
+                <Grid
+                Grid.Row="2"
+                Grid.ColumnSpan="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button
+                Background="#146eb4"
+                BorderColor="Black"
+                CornerRadius="20"
+                TextColor="White"
+                FontFamily="AmazonEmberDisplay_Rg"
+                FontAttributes="Bold"
+                Text="Add to Cart"
+                Clicked="PlaceInCartClicked"
+                WidthRequest="500"
+                Margin="10, 5, 10, 0"
+            />
+                </Grid>
+
+
+            </Grid>
+
+
+
+        </VerticalStackLayout>
+        <Button Grid.Row="1"
+                Background="#ff9900"
+                BorderColor="Black"
+                CornerRadius="20"
+                TextColor="White"
+                FontFamily="AmazonEmberDisplay_Rg"
+                FontAttributes="Bold"
+                Text="Back to Dashboard"
+                Clicked="BackToDashboard"
+                Margin="10, 10, 10, 0"
+                WidthRequest="200"
+
+            />
+
+        <BoxView Color="Transparent" Grid.Row="2" HeightRequest="10" />
+
+    </Grid>
+</ContentPage>

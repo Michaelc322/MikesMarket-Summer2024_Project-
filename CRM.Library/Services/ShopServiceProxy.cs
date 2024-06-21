@@ -1,14 +1,19 @@
-﻿using CRM.Models;
+﻿using CRM.Library.Models;
 using System.Collections.ObjectModel;
 
 namespace CRM.Library.Services
 {
     public class ShopServiceProxy
     {
+        private List<Product>? items;
+
         private ShopServiceProxy()
         {
-            items = new List<Item>();
+            items = new List<Product>();
         }
+
+        public ReadOnlyCollection<ShoppingCart>? carts;
+
 
         private static ShopServiceProxy? instance;
         private static object instanceLock = new object();
@@ -28,9 +33,7 @@ namespace CRM.Library.Services
             }
         }
 
-        private List<Item>? items;
-
-        public ReadOnlyCollection<Item>? Items
+        public ReadOnlyCollection<Product>? Items
         {
             get
             {
@@ -53,7 +56,7 @@ namespace CRM.Library.Services
             }
         }
 
-        public Item? AddToCart(Item item)
+        public Product? AddToCart(Product item)
         {
             if (items == null)
             {
@@ -96,7 +99,7 @@ namespace CRM.Library.Services
 
         }
 
-        public Item? GetItemByID(int id)
+        public Product? GetItemByID(int id)
         {
             if (items == null)
             {

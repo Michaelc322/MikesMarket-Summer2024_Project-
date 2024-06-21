@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CRM.MAUI.Views.ProductView"
+             Title="ProductView"
+             NavigatedTo="ContentPage_NavigatedTo"
+             BackgroundColor="#232f3e">
+    <Shell.TitleView>
+        <HorizontalStackLayout Padding="10, 0">
+            <Label
+                Text="Product Manager"
+                FontFamily="AmazonEmberDisplay_Rg"
+                TextColor="White"
+                VerticalTextAlignment="Center"
+                VerticalOptions="Center"
+                FontSize="Medium"/>
+
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+
+    <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Text="ID" Grid.Row="0" Grid.Column="0"/>
+            <Label Text="{Binding Product.Id}" Grid.Row="0" Grid.Column="1"/>
+
+            <Label Text="Name" Grid.Row="1" Grid.Column="0"/>
+            <Entry Text="{Binding Product.Name}" Grid.Row="1" Grid.Column="1"/>
+
+            <Label Text="Price" Grid.Row="2" Grid.Column="0"/>
+            <Entry Text="{Binding PriceAsString}" Grid.Row="2" Grid.Column="1"/>
+
+            <Label Text="Quantity" Grid.Row="3" Grid.Column="0"/>
+            <Entry Text="{Binding Product.Quantity}" Grid.Row="3" Grid.Column="1"/>
+        </Grid>
+
+
+        <Button
+                Background="#2a2c33"
+                BorderColor="Black"
+                CornerRadius="20"
+                TextColor="White"
+                BorderWidth="2"
+                FontFamily="AmazonEmberDisplay_Rg"
+                FontAttributes="Bold"
+                Text="Add"
+                Clicked="AddClicked"
+                Margin="10, 10, 10, 0"
+                WidthRequest="200"
+
+            />
+        <Button
+                Background="#2a2c33"
+                BorderColor="Black"
+                CornerRadius="20"
+                TextColor="White"
+                BorderWidth="2"
+                FontFamily="AmazonEmberDisplay_Rg"
+                FontAttributes="Bold"
+                Text="Cancel"
+                Clicked="CancelClicked"
+                Margin="10, 10, 10, 0"
+                WidthRequest="200"
+
+            />
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,5 +1,5 @@
 ﻿using CRM.Library.Services;
-using CRM.Models;
+using CRM.Library.Models;
 using System.Collections;
 using System.Security.Cryptography.X509Certificates;
 
@@ -41,7 +41,7 @@ namespace Summer2024_Project
         }
 
         public static void InventoryManager() {
-            var itemService = ItemServiceProxy.Current;
+            var itemService = InventoryServiceProxy.Current;
 
             while (true)
             {
@@ -92,9 +92,9 @@ namespace Summer2024_Project
                     return;
                 }
 
-                if(double.TryParse(price, out var priceValue))
+                if(decimal.TryParse(price, out var priceValue))
                 {
-                    itemService.AddOrUpdate(new Item { Name = name, Description = description, Price = priceValue, Quantity = int.Parse(quantity)});
+                    itemService.AddOrUpdate(new Product { Name = name, Description = description, Price = priceValue, Quantity = int.Parse(quantity)});
                 }
                 else
                 {
@@ -105,7 +105,7 @@ namespace Summer2024_Project
             void ViewInventory() {
                 Console.WriteLine();
                 Console.WriteLine("Inventory:");
-                itemService?.Items?.ToList()?.ForEach(Console.WriteLine);
+                itemService?.Products?.ToList()?.ForEach(Console.WriteLine);
                 Console.WriteLine();
             }
 
@@ -139,7 +139,7 @@ namespace Summer2024_Project
                         return;
                     }
 
-                    if (double.TryParse(price, out var priceValue))
+                    if (decimal.TryParse(price, out var priceValue))
                     {
                         item.Name = name;
                         item.Description = description;
@@ -174,8 +174,8 @@ namespace Summer2024_Project
 
         public static void Shop()
         {
-            List<Item> cart = new List<Item>();
-            var itemService = ItemServiceProxy.Current;
+            List<Product> cart = new List<Product>();
+            var itemService = InventoryServiceProxy.Current;
             var shopService = ShopServiceProxy.Current;
 
 
@@ -218,7 +218,7 @@ namespace Summer2024_Project
                     Console.WriteLine("Enter the ID of the item you would like to add to your cart:");
                     var id = Console.ReadLine();
                     bool add = true;
-                    List<Item> items = shopService?.Items?.ToList() ?? new List<Item>();
+                    List<Product> items = shopService?.Items?.ToList() ?? new List<Product>();
 
                     if(int.TryParse(id, out var idValue)){ 
                         foreach(var item in items)
@@ -253,7 +253,7 @@ namespace Summer2024_Project
                                 Console.WriteLine("Item not found in inventory!");
                                 return;
                             }
-                            var addedItem = shopService?.AddToCart(new Item
+                            var addedItem = shopService?.AddToCart(new Product
                             {
                                 Name = addItem.Name,
                                 Description = addItem.Description,
@@ -298,7 +298,7 @@ namespace Summer2024_Project
 
                 void Checkout()
                 {
-                    var items = shopService?.Items?.ToList() ?? new List<Item>();
+                    var items = shopService?.Items?.ToList() ?? new List<Product>();
                     Console.WriteLine("Thank you for shopping with us!");
                     Console.WriteLine("Here is your receipt:");
 
@@ -307,7 +307,7 @@ namespace Summer2024_Project
                     Console.WriteLine("---------------------");
 
 
-                    double total = 0;
+                    decimal total = 0;
 
                     foreach (var item in items)
                     {
@@ -325,12 +325,14 @@ namespace Summer2024_Project
                         }
                     }
 
+                    decimal Tax = total * 0.07m;
+                    decimal Total = total * 1.07m;
 
                     Console.WriteLine();
                     Console.WriteLine("---------------------");
                     Console.WriteLine($"Subtotal: ${total}");
-                    Console.WriteLine($"Tax: ${total * 0.07}");
-                    Console.WriteLine($"Total: ${total * 1.07}");
+                    Console.WriteLine($"Tax: ${Tax}");
+                    Console.WriteLine($"Total: ${Total}");
                     Console.WriteLine("---------------------");
 
 
