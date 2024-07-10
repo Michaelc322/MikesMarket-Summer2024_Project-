@@ -1,15 +1,15 @@
 ﻿using CRM.Library.Models;
 using CRM.Library.Services;
-using System.Windows.Input;
-
-using Product = CRM.Library.Models.Product;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CRM.MAUI.ViewModels
 {
-    public class ProductViewModel
+    public class ProductConfigViewModel
     {
-        public ICommand? DeleteCommand { get; private set; }
-        public ICommand? EditCommand   { get; private set; }
 
         public override string ToString()
         {
@@ -65,68 +65,53 @@ namespace CRM.MAUI.ViewModels
             }
         }
 
-        public string MarkdownSale
+        public string MarkdownPrice
         {
-            get
+            set
             {
-               if (Product?.Markdown > 0)
-               {
-                   return $"SALE: -{Product.Markdown:C}";
-               }
-
-                return string.Empty;
-            }
-        }
-
-        public string isBogo
-        {
-            get
-            {
-                if (Product?.Bogo == true)
+                if (Product == null)
                 {
-                    return "BOGO DEAL";
+                    return;
                 }
+                if (decimal.TryParse(value, out var price))
+                {
+                    if(Product.Price < price)
+                    {
+                        price = Product.Price;
+                    }
+                    Product.Markdown = price;
+                }
+                else
+                {
 
-                return string.Empty;
+                }
             }
         }
 
-        public ProductViewModel()
+        public ProductConfigViewModel()
         {
             Product = new Product();
-            SetupCommands();
         }
 
-        public ProductViewModel(int productId)
+        public ProductConfigViewModel(int productId)
         {
 
-           Product = InventoryServiceProxy.Current?.Products?.FirstOrDefault(p => p.Id == productId);
-           if(Product == null)
+            Product = InventoryServiceProxy.Current?.Products?.FirstOrDefault(p => p.Id == productId);
+            if (Product == null)
             {
                 Product = new Product();
             }
         }
-        public ProductViewModel(Product? model)
+        public ProductConfigViewModel(Product? model)
         {
             if (model != null)
             {
                 Product = model;
-                SetupCommands();
             }
             else
             {
                 Product = new Product();
-                SetupCommands();
             }
-        }
-
-        public void SetupCommands()
-        {
-            DeleteCommand = new Command(
-               (p) => ExecuteDelete((p as ProductViewModel)?.Product?.Id));
-
-            EditCommand = new Command(
-                (p) => ExecuteEdit((p as ProductViewModel)));
         }
 
         public void Add()
@@ -135,25 +120,6 @@ namespace CRM.MAUI.ViewModels
             {
                 InventoryServiceProxy.Current.AddOrUpdate(Product);
             }
-        }
-
-        private void ExecuteEdit(ProductViewModel? p)
-        {
-            if (p?.Product == null)
-            {
-                return;
-            }
-            Shell.Current.GoToAsync($"//Product?productId={p.Product.Id}");
-        }
-
-        private void ExecuteDelete(int? id)
-        {
-            if (id == null)
-            {
-                return;
-            }
-
-            InventoryServiceProxy.Current.Delete(id ?? 0);
         }
     }
 }

@@ -32,6 +32,8 @@ namespace CRM.Library.Services
             }
         }
 
+         
+
 
         public ReadOnlyCollection<Product>? Products
         {
@@ -78,6 +80,22 @@ namespace CRM.Library.Services
             return p;
         }
 
+
+        public Product? ConfigureProduct(bool isBogo, decimal Markdown, Product p)
+        {
+            if (products == null)
+            {
+                return null;
+            }
+
+            p.Markdown = Markdown;
+            p.Bogo = isBogo;
+
+            AddOrUpdate(p);
+
+            return p;
+        }
+
         public void Delete(int id)
         {
             if (products == null)
@@ -107,6 +125,13 @@ namespace CRM.Library.Services
             }
 
             return products?.FirstOrDefault(i => i.Id == id);
+        }
+
+        public decimal taxAmount { get; set; } = 0;
+
+        public void ChangeTax(decimal taxRate)
+        {
+            taxAmount = taxRate;
         }
 
     }

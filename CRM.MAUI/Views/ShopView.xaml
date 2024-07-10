@@ -25,6 +25,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+
         </Grid.RowDefinitions>
 
         <VerticalStackLayout Grid.Row="0">
@@ -76,14 +78,24 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
-                                            <ColumnDefinition Width="5*"/>
                                             <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
 
-                                        <Label Grid.Column="0" Text="{Binding Product.Id}"/>
-                                        <Label Grid.Column="1" Text="{Binding DisplayPrice}"/>
-                                        <Label Grid.Column="2" Text="{Binding Product.Name}"/>
-                                        <Label Grid.Column="3" Text="{Binding Product.Quantity}"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Grid.Column="0" Grid.Row="0" Text="{Binding Product.Id}"/>
+                                        <Label Grid.Column="1" Grid.Row="0" Text="{Binding DisplayPrice}"/>
+                                        <Label Grid.Column="2" Grid.Row="0" Text="{Binding Product.Name}"/>
+                                        <Label Grid.Column="3" Grid.Row="0" Text="{Binding Product.Quantity}"/>
+                                        <Label Grid.Column="4" Grid.Row="0" Text="{Binding MarkdownSale}"/>
+                                        <Label Grid.Column="4" Grid.Row="1" Text="{Binding isBogo}"/>
+
+
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>
@@ -96,7 +108,7 @@
                 <Grid Grid.Row="0" Grid.Column="2">
                     <!-- Cart -->
                     <ListView
-                    ItemsSource="{Binding CartContents}"
+                    ItemsSource="{Binding ProductsInCart}"
                     >
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -107,6 +119,8 @@
                                             <ColumnDefinition/>
                                             <ColumnDefinition Width="5*"/>
                                             <ColumnDefinition/>
+                                            <ColumnDefinition/>
+
                                         </Grid.ColumnDefinitions>
 
                                         <Label Grid.Column="0" Text="{Binding Product.Id}"/>
@@ -120,7 +134,13 @@
                     </ListView>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column ="2">
-                    <Label Text="{Binding CartTotal}"/>
+                    <Label Text="{Binding CartSubtotal}"/>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column ="2">
+                    <Label Text="{Binding CartTax}"/>
+                </Grid>
+                <Grid Grid.Row="3" Grid.Column ="2">
+                    <Label Text="{Binding CartTotalString}"/>
                 </Grid>
                 <Grid
                 Grid.Row="2"

@@ -24,7 +24,21 @@
         Route="InventoryManager" 
        
         />
-        
+
+    <ShellContent
+        Title="Configuration"
+        ContentTemplate="{DataTemplate views:MarketConfigurationView}"
+        Route="MarketConfig" 
+       
+        />
+
+    <ShellContent
+        Title="Subscriptions"
+        ContentTemplate="{DataTemplate views:SubscriptionsView}"
+        Route="Subscriptions" 
+       
+        />
+
 
     <ShellContent
         Title="Shop"
@@ -35,5 +49,26 @@
         Title="Product"
         ContentTemplate="{DataTemplate views:ProductView}"
         Route="Product" />
+
+    <ShellContent
+        Title="Product Config"
+        ContentTemplate="{DataTemplate views:ConfigureProductView}"
+        Route="Configuration" />
+
+    <ShellContent
+        Title="Product Subscription"
+        ContentTemplate="{DataTemplate views:SubProductView}"
+        Route="ProductSub" />
+
+
+    <ShellContent
+        Title="Cart Selection"
+        ContentTemplate="{DataTemplate views:CartSelectionView}"
+        Route="CartSelection" />
+
+    <ShellContent
+        Title="New Cart"
+        ContentTemplate="{DataTemplate views:NewCartView}"
+        Route="NewCart" />
 
 </Shell>

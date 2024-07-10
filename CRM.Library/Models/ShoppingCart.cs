@@ -4,7 +4,9 @@ namespace CRM.Library.Models
 {
     public class ShoppingCart
     {
-        int Id { get; set; }
+        public int Id { get; set; }
+
+        public string Name { get; set; }
 
         public List<Product>? Contents { get; set; }
 

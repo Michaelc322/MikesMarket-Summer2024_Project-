@@ -10,8 +10,6 @@ public partial class ProductView : ContentPage
     public ProductView()
 	{
 		InitializeComponent();
-		BindingContext = new ProductViewModel();
-
 	}
 
     private void CancelClicked(object sender, EventArgs e)

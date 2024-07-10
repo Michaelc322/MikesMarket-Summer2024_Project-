@@ -1,10 +1,13 @@
+using CRM.Library.Models;
 using CRM.Library.Services;
 using CRM.MAUI.ViewModels;
 
 namespace CRM.MAUI.Views;
 
+[QueryProperty(nameof(CartId), "cartId")]
 public partial class ShopView : ContentPage
 {
+    public int CartId { get; set; }
 	public ShopView()
 	{
 		InitializeComponent();
@@ -18,7 +21,9 @@ public partial class ShopView : ContentPage
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
-        (BindingContext as ShopViewModel).Refresh();
+
+       BindingContext = new ShopViewModel(CartId);
+       (BindingContext as ShopViewModel).Refresh();
     }
 
     private void InventorySearchClicked(object sender, EventArgs e)

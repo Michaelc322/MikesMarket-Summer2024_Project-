@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CRM.MAUI.Views.MarketConfigurationView"
+             Title="Configuration"
+             NavigatedFrom="ContentPage_NavigatedFrom"
+             NavigatedTo="ContentPage_NavigatedTo">
+    <Shell.TitleView>
+        <HorizontalStackLayout Padding="10, 0">
+            <Label
+                Text="Inventory Manager"
+                FontFamily="AmazonEmberDisplay_Rg"
+                TextColor="White"
+                VerticalTextAlignment="Center"
+                VerticalOptions="Center"
+                FontSize="Medium"/>
+
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+
+    <ScrollView
+        Background="#232f3e">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <VerticalStackLayout Grid.Row="0">
+                <ListView
+            ItemsSource="{Binding Products}"
+            SelectedItem="{Binding SelectedProduct}"
+            >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <BoxView Color="Transparent" Grid.Column="0" WidthRequest="3" />
+
+                                    <Label Grid.Column="1" Text="{Binding Product.Id}"/>
+                                    <Label Grid.Column="2" Text="{Binding DisplayPrice}"/>
+                                    <Label Grid.Column="3" Text="{Binding Product.Name}"/>
+                                    <Label Grid.Column="4" Text="{Binding Product.Quantity}"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Button
+                Background="#146eb4"
+                BorderColor="Black"
+                CornerRadius="20"
+                TextColor="White"
+                FontFamily="AmazonEmberDisplay_Rg"
+                FontAttributes="Bold"
+                Text="Configure Product"
+                Clicked="EditClicked"
+                Margin="10, 5, 10, 0"
+            />
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+                <Label Text="Tax Rate: " Grid.Row="0" Grid.Column="0"/>
+                <Entry Text="{Binding taxRate}" Grid.Row="0" Grid.Column="1" Placeholder="{Binding taxRate}"/>
+                <Button
+                Grid.Row="1"
+                Background="#146eb4"
+                BorderColor="Black"
+                CornerRadius="20"
+                TextColor="White"
+                FontFamily="AmazonEmberDisplay_Rg"
+                FontAttributes="Bold"
+                Text="Change Tax Rate"
+                Clicked="TaxRateClicked"
+                Margin="10, 5, 10, 0"
+            />
+
+            </VerticalStackLayout>
+            <Button Grid.Row="1"
+                Background="#ff9900"
+                BorderColor="Black"
+                CornerRadius="20"
+                TextColor="White"
+                FontFamily="AmazonEmberDisplay_Rg"
+                FontAttributes="Bold"
+                Text="Back to Dashboard"
+                Clicked="BackToDashboard"
+                Margin="10, 200, 10, 0"
+                WidthRequest="200"
+
+            />
+
+            <BoxView Color="Transparent" Grid.Row="2" HeightRequest="10" />
+
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

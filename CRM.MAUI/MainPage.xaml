@@ -37,6 +37,10 @@
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Column="1" Grid.Row="0">
@@ -65,6 +69,38 @@
                     FontAttributes="Bold"
                     Text="Inventory"
                     Clicked="InventoryClicked"
+                    Margin="5"
+                    
+                    />
+                </Grid>
+
+                <Grid Grid.Column="1" Grid.Row="2">
+                    <Button
+                    Background="#2a2c33"
+                    BorderColor="Black"
+                    TextColor="White"
+                    CornerRadius="20"
+                    BorderWidth="2"
+                    FontFamily="Poppins"
+                    FontAttributes="Bold"
+                    Text="Market Configuration"
+                    Clicked="ConfigClicked"
+                    Margin="5"
+                    
+                    />
+                </Grid>
+
+                <Grid Grid.Column="1" Grid.Row="3">
+                    <Button
+                    Background="#2a2c33"
+                    BorderColor="Black"
+                    TextColor="White"
+                    CornerRadius="20"
+                    BorderWidth="2"
+                    FontFamily="Poppins"
+                    FontAttributes="Bold"
+                    Text="Manage Subscriptions"
+                    Clicked="SubscriptionClicked"
                     Margin="5"
                     
                     />
