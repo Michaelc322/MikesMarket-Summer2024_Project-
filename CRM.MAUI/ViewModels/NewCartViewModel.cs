@@ -32,12 +32,20 @@ namespace CRM.MAUI.ViewModels
         public NewCartViewModel()
         {
             Cart = new ShoppingCart();
+            Cart.Id = 0;
+        }
+
+        public NewCartViewModel(int Id)
+        {
+            Cart = new ShoppingCart();
+            Cart.Id = Id;
         }
 
         public void Add()
         {
             if (Cart != null)
             {
+                //Cart.Id = ShoppingCartService.Current.Carts?.Select(i => i.Id)?.Max() + 1 ?? 0;
                 ShoppingCartService.Current.AddOrUpdate(Cart);
             }
         }
