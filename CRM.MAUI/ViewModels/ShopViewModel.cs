@@ -1,5 +1,6 @@
 ﻿
 
+using CRM.Library.DTO;
 using CRM.Library.Models;
 using CRM.Library.Services;
 using Microsoft.Maui.Graphics.Text;
@@ -72,11 +73,11 @@ namespace CRM.MAUI.ViewModels
 
                 if (productToBuy != null && productToBuy.Product == null)
                 {
-                    productToBuy.Product = new Product();
+                    productToBuy.Product = new ProductDTO();
                 }
                 else if(productToBuy != null && productToBuy.Product != null)
                 {
-                    productToBuy.Product = new Product(productToBuy.Product);
+                    productToBuy.Product = new ProductDTO(productToBuy.Product);
                 }
             } 
         }

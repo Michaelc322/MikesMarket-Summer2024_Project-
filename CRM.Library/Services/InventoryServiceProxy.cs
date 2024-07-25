@@ -1,17 +1,18 @@
-﻿using CRM.Library.Models;
+﻿using CRM.Library.DTO;
+using CRM.Library.Models;
+using CRM.Library.Utilities;
+using Newtonsoft.Json;
 using System.Collections.ObjectModel;
+using System.Net;
 
 namespace CRM.Library.Services
 {
     public class InventoryServiceProxy
     {
-        private List<Product>? products;
+        //private List<Product>? products;
         private InventoryServiceProxy() {
-            products = new List<Product>
-            {
-                new Product { Id = 1, Name = "Product 1", Description = "Description 1", Price = 10.0m, Quantity = 3 },
-                new Product { Id = 2, Name = "Product 2", Description = "Description 2", Price = 20.0m, Quantity = 5 },
-            };
+            var response = new WebRequestHandler().Get("/Inventory").Result;
+            products = JsonConvert.DeserializeObject<List<ProductDTO>>(response);
         }
 
         private static InventoryServiceProxy? instance;
@@ -35,14 +36,23 @@ namespace CRM.Library.Services
          
 
 
-        public ReadOnlyCollection<Product>? Products
+       /* public ReadOnlyCollection<Product>? Products
         {
             get
             {
                 return products?.AsReadOnly();
             }
-        }
+        }*/
 
+        private List<ProductDTO> products;
+
+        public ReadOnlyCollection<ProductDTO> Products
+        {
+            get
+            {
+                return products.AsReadOnly();
+            }
+        }
         // functionality
 
         public int LastId
@@ -57,6 +67,7 @@ namespace CRM.Library.Services
             }
         }
 
+        /*
         public Product? AddOrUpdate(Product p)
         {
             if(products == null)
@@ -79,9 +90,9 @@ namespace CRM.Library.Services
 
             return p;
         }
+        */
 
-
-        public Product? ConfigureProduct(bool isBogo, decimal Markdown, Product p)
+        public async Task<ProductDTO> ConfigureProduct(bool isBogo, decimal Markdown, ProductDTO p)
         {
             if (products == null)
             {
@@ -91,11 +102,12 @@ namespace CRM.Library.Services
             p.Markdown = Markdown;
             p.Bogo = isBogo;
 
-            AddOrUpdate(p);
+            p = await AddOrUpdate(p);
 
             return p;
         }
 
+        /*
         public void Delete(int id)
         {
             if (products == null)
@@ -116,7 +128,30 @@ namespace CRM.Library.Services
 
 
         }
+        */
 
+        public async Task<IEnumerable<ProductDTO>> Get()
+        {
+            var result = await new WebRequestHandler().Get("/Inventory");
+            var deserializedResult = JsonConvert.DeserializeObject<List<ProductDTO>>(result);
+            products = deserializedResult?.ToList() ?? new List<ProductDTO>();
+            return products;
+        }
+
+        public async Task<ProductDTO> AddOrUpdate(ProductDTO p)
+        {
+            var result = await new WebRequestHandler().Post("/Inventory", p);
+            return JsonConvert.DeserializeObject<ProductDTO>(result);
+        }
+
+        public async Task<ProductDTO?> Delete(int id)
+        {
+            var response = await new WebRequestHandler().Delete($"/{id}");
+            var itemToDelete = JsonConvert.DeserializeObject<ProductDTO>(response);
+            return itemToDelete;
+        }
+
+        /* USED IN CONSOLE APPLICATION
         public Product? GetItemByID(int id)
         {
             if (products == null)
@@ -125,6 +160,18 @@ namespace CRM.Library.Services
             }
 
             return products?.FirstOrDefault(i => i.Id == id);
+        }
+        */
+        public async Task<IEnumerable<ProductDTO>> Search(Query? query)
+        {
+            if (query == null || string.IsNullOrEmpty(query.QueryString))
+            {
+                return await Get();
+            }
+
+            var result = await new WebRequestHandler().Post("/Inventory/Search", query);
+            products = JsonConvert.DeserializeObject<List<ProductDTO>>(result) ?? new List<ProductDTO>();
+            return Products;
         }
 
         public decimal taxAmount { get; set; } = 0;

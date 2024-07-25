@@ -1,4 +1,5 @@
-﻿using CRM.Library.Models;
+﻿using CRM.Library.DTO;
+using CRM.Library.Models;
 using CRM.Library.Services;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace CRM.MAUI.ViewModels
 
         public MarketConfigurationViewModel()
         {
-            Product = new Product();
+            Product = new ProductDTO();
         }
 
         public List<ProductViewModel> Products
@@ -35,10 +36,10 @@ namespace CRM.MAUI.ViewModels
             Product = InventoryServiceProxy.Current?.Products?.FirstOrDefault(p => p.Id == productId);
             if (Product == null)
             {
-                Product = new Product();
+                Product = new ProductDTO();
             }
         }
-        public Product? Product { get; set; }
+        public ProductDTO? Product { get; set; }
 
 
         public void Refresh()

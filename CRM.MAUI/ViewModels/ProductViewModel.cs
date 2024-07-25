@@ -1,4 +1,5 @@
-﻿using CRM.Library.Models;
+﻿using CRM.Library.DTO;
+using CRM.Library.Models;
 using CRM.Library.Services;
 using System.Windows.Input;
 
@@ -19,7 +20,7 @@ namespace CRM.MAUI.ViewModels
             }
             return $"{Product.Id} - {Product.Name} - {Product.Price:C}";
         }
-        public Product? Product { get; set; }
+        public ProductDTO? Product { get; set; }
 
         public string? Name
         {
@@ -93,20 +94,27 @@ namespace CRM.MAUI.ViewModels
 
         public ProductViewModel()
         {
-            Product = new Product();
+            Product = new ProductDTO();
             SetupCommands();
         }
 
-        public ProductViewModel(int productId)
-        {
 
-           Product = InventoryServiceProxy.Current?.Products?.FirstOrDefault(p => p.Id == productId);
-           if(Product == null)
+        public ProductViewModel(int productId = 0)
+        {
+            if (productId == 0)
             {
-                Product = new Product();
+                Product = new ProductDTO();
+            }
+            else
+            {
+                Product = InventoryServiceProxy
+                    .Current
+                    .Products.FirstOrDefault(p => p.Id == productId)
+                    ?? new ProductDTO();
             }
         }
-        public ProductViewModel(Product? model)
+
+        public ProductViewModel(ProductDTO? model)
         {
             if (model != null)
             {
@@ -115,8 +123,9 @@ namespace CRM.MAUI.ViewModels
             }
             else
             {
-                Product = new Product();
+                Product = new ProductDTO();
                 SetupCommands();
+
             }
         }
 
@@ -129,11 +138,11 @@ namespace CRM.MAUI.ViewModels
                 (p) => ExecuteEdit((p as ProductViewModel)));
         }
 
-        public void Add()
+        public async void Add()
         {
             if (Product != null)
             {
-                InventoryServiceProxy.Current.AddOrUpdate(Product);
+               Product = await InventoryServiceProxy.Current.AddOrUpdate(Product);
             }
         }
 
@@ -146,14 +155,15 @@ namespace CRM.MAUI.ViewModels
             Shell.Current.GoToAsync($"//Product?productId={p.Product.Id}");
         }
 
-        private void ExecuteDelete(int? id)
+        private async void ExecuteDelete(int? id)
         {
             if (id == null)
             {
                 return;
             }
 
-            InventoryServiceProxy.Current.Delete(id ?? 0);
+            Product = await InventoryServiceProxy.Current.Delete(id ?? 0);
+            
         }
     }
 }

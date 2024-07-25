@@ -1,4 +1,5 @@
-﻿using CRM.Library.Models;
+﻿using CRM.Library.DTO;
+using CRM.Library.Models;
 using CRM.Library.Services;
 using System;
 using System.Collections.Generic;
@@ -26,11 +27,11 @@ namespace CRM.MAUI.ViewModels
 
                 if (productToBuy != null && productToBuy.Product == null)
                 {
-                    productToBuy.Product = new Product();
+                    productToBuy.Product = new ProductDTO();
                 }
                 else if (productToBuy != null && productToBuy.Product != null)
                 {
-                    productToBuy.Product = new Product(productToBuy.Product);
+                    productToBuy.Product = new ProductDTO(productToBuy.Product);
                 }
             }
         }
@@ -54,7 +55,7 @@ namespace CRM.MAUI.ViewModels
         public SubscriptionViewModel()
         {
             InventoryQuery = string.Empty;
-            Product = new Product();
+            Product = new ProductDTO();
             SubscriptionCart = ShoppingCartService.Current?.AddOrUpdate(new ShoppingCart { Name = "Subscriptions" });
         }
 
@@ -87,10 +88,10 @@ namespace CRM.MAUI.ViewModels
             Product = InventoryServiceProxy.Current?.Products?.FirstOrDefault(p => p.Id == productId);
             if (Product == null)
             {
-                Product = new Product();
+                Product = new ProductDTO();
             }
         }
-        public Product? Product { get; set; }
+        public ProductDTO? Product { get; set; }
 
         public void AddSubscription()
         {

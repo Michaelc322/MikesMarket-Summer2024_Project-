@@ -21,8 +21,9 @@ namespace CRM.MAUI.ViewModels
             }
         }
 
-        public void Refresh()
+        public async void Refresh()
         {
+            await InventoryServiceProxy.Current.Get();
             NotifyPropertyChanged(nameof(Products));
         }
 
@@ -33,24 +34,19 @@ namespace CRM.MAUI.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void UpdateContact()
+        public void Edit()
         {
-            if (SelectedProduct?.Product == null)
-            {
-                return;
-            }
-            Shell.Current.GoToAsync($"//Product?productId={SelectedProduct.Product.Id}");
-            InventoryServiceProxy.Current.AddOrUpdate(SelectedProduct.Product);
+            Shell.Current.GoToAsync($"//Product?productId={SelectedProduct?.Product?.Id ?? 0}");
         }
 
-        public void DeleteProduct()
+        public async void DeleteProduct()
         {
             if (SelectedProduct?.Product == null)
             {
                 return;
             }
 
-            InventoryServiceProxy.Current.Delete(SelectedProduct.Product.Id);
+            await InventoryServiceProxy.Current.Delete(SelectedProduct.Product.Id);
             Refresh();
         }
     }

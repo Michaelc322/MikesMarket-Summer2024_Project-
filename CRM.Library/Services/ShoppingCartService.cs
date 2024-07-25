@@ -1,5 +1,6 @@
 ﻿
 
+using CRM.Library.DTO;
 using CRM.Library.Models;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Tracing;
@@ -93,7 +94,7 @@ namespace CRM.Library.Services
             return c;
         }
 
-        public void AddToCart(Product newProduct, int Id)
+        public void AddToCart(ProductDTO newProduct, int Id)
         {
 
             ShoppingCart AssignedCart = carts.FirstOrDefault(c => c.Id == Id);
@@ -155,7 +156,7 @@ namespace CRM.Library.Services
             }
         }
 
-        public void AddSubscription(Product newProduct)
+        public void AddSubscription(ProductDTO newProduct)
         {
             if (Cart == null || Cart.Contents == null)
             {

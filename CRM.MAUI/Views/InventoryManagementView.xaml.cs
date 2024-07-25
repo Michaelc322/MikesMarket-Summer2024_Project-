@@ -27,18 +27,21 @@ public partial class InventoryManagementView : ContentPage
 
     private void EditClicked(object sender, EventArgs e)
     {
-        (BindingContext as InventoryManagementViewModel)?.UpdateContact();
+        (BindingContext as InventoryManagementViewModel)?.Edit();
     }
 
     private void DeleteClicked(object sender, EventArgs e)
     {
         (BindingContext as InventoryManagementViewModel)?.DeleteProduct();
+
     }
 
     private void ContentPage_NavigatedFrom(object sender, NavigatedFromEventArgs e)
     {
 
     }
+
+
 
     private void BackToDashboard(object sender, EventArgs e)
     {

@@ -1,4 +1,6 @@
 ﻿
+using CRM.Library.DTO;
+
 namespace CRM.Library.Models
 {
         public class Product
@@ -12,9 +14,9 @@ namespace CRM.Library.Models
 
             public decimal Markdown { get; set; } = 0;
 
-            public bool Bogo { get; set; }
+        public bool Bogo { get; set; } = false;
 
-            public string Frequency { get; set; }
+        public string Frequency { get; set; } = "None";
 
             
 
@@ -43,16 +45,18 @@ namespace CRM.Library.Models
             Frequency = p.Frequency;
         }
 
-        public Product(Product p, bool isBogo)
+        public Product(ProductDTO d)
         {
-            Name = p.Name;
-            Description = p.Description;
-            Price = p.Price;
-            Id = p.Id;
-            Quantity = p.Quantity;
-            Markdown = p.Markdown;
-            Bogo = isBogo;
+            Name = d.Name;
+            Description = d.Description;
+            Price = d.Price;
+            Id = d.Id;
+            Quantity = d.Quantity;
+            Markdown = d.Markdown;
+            Bogo = d.Bogo;
         }
+
+
 
         public override string ToString()
             {

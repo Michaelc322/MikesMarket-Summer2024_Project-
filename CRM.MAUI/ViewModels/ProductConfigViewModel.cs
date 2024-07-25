@@ -1,4 +1,5 @@
-﻿using CRM.Library.Models;
+﻿using CRM.Library.DTO;
+using CRM.Library.Models;
 using CRM.Library.Services;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace CRM.MAUI.ViewModels
             }
             return $"{Product.Id} - {Product.Name} - {Product.Price:C}";
         }
-        public Product? Product { get; set; }
+        public ProductDTO? Product { get; set; }
 
         public string? Name
         {
@@ -90,7 +91,7 @@ namespace CRM.MAUI.ViewModels
 
         public ProductConfigViewModel()
         {
-            Product = new Product();
+            Product = new ProductDTO();
         }
 
         public ProductConfigViewModel(int productId)
@@ -99,10 +100,10 @@ namespace CRM.MAUI.ViewModels
             Product = InventoryServiceProxy.Current?.Products?.FirstOrDefault(p => p.Id == productId);
             if (Product == null)
             {
-                Product = new Product();
+                Product = new ProductDTO();
             }
         }
-        public ProductConfigViewModel(Product? model)
+        public ProductConfigViewModel(ProductDTO? model)
         {
             if (model != null)
             {
@@ -110,15 +111,15 @@ namespace CRM.MAUI.ViewModels
             }
             else
             {
-                Product = new Product();
+                Product = new ProductDTO();
             }
         }
 
-        public void Add()
+        public async void Add()
         {
             if (Product != null)
             {
-                InventoryServiceProxy.Current.AddOrUpdate(Product);
+                await InventoryServiceProxy.Current.AddOrUpdate(Product);
             }
         }
     }

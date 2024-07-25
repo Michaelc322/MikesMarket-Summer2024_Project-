@@ -3,12 +3,14 @@ using CRM.Library.Models;
 using System.Collections;
 using System.Security.Cryptography.X509Certificates;
 
+
 namespace Summer2024_Project
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+            /*
             bool start = true;
             while (start)
             {
@@ -94,7 +96,7 @@ namespace Summer2024_Project
 
                 if(decimal.TryParse(price, out var priceValue))
                 {
-                    itemService.AddOrUpdate(new Product { Name = name, Description = description, Price = priceValue, Quantity = int.Parse(quantity)});
+                    //itemService.AddOrUpdate(new Product { Name = name, Description = description, Price = priceValue, Quantity = int.Parse(quantity)});
                 }
                 else
                 {
@@ -339,8 +341,9 @@ namespace Summer2024_Project
 
                 }
             }
-
+            */
         }
-
+           
     }
+            
 }

@@ -1,4 +1,5 @@
-﻿using CRM.Library.Models;
+﻿using CRM.Library.DTO;
+using CRM.Library.Models;
 
 namespace CRM.Library.Models
 {
@@ -8,11 +9,11 @@ namespace CRM.Library.Models
 
         public string Name { get; set; }
 
-        public List<Product>? Contents { get; set; }
+        public List<ProductDTO>? Contents { get; set; }
 
         public ShoppingCart()
         {
-            Contents = new List<Product>();
+            Contents = new List<ProductDTO>();
         }
     }
 }
